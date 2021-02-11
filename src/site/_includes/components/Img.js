@@ -4,6 +4,8 @@ const {imgix: domain} = require('../../_data/site');
 
 const client = new ImgixClient({domain, includeLibraryParam: false});
 const MAX_WIDTH = 800;
+const defaultOptions = {minWidth: 200, maxWidth: 1600, widthTolerance: 0.07};
+const defaultParams = {auto: 'format'};
 
 /**
  * Generates src URL of image from imgix path or URL.
@@ -51,12 +53,10 @@ const Img = function (args) {
   }
 
   // https://docs.imgix.com/apis/rendering
-  params = {auto: 'format', ...params};
+  params = {...defaultParams, ...params};
   // https://github.com/imgix/imgix-core-js#imgixclientbuildsrcsetpath-params-options
   options = {
-    minWidth: 200,
-    maxWidth: 1600,
-    widthTolerance: 0.07,
+    ...defaultOptions,
     ...options,
   };
 
